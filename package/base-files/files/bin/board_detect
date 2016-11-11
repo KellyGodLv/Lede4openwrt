@@ -1,0 +1,14 @@
+#!/bin/sh
+
+CFG=$1
+
+[ -n "$CFG" ] || CFG=/etc/board.json
+
+[ -d "/etc/board.d/" -a ! -f "$CFG" ] && {
+	for a in `ls /etc/board.d/*`; do
+		[ -x $a ] || continue;
+		$(. $a)
+	done
+}
+
+[ -f "$CFG" ] || return 1

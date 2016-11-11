@@ -1,0 +1,34 @@
+--- a/files/arch/mips/ath79/mach-tl-wr741nd-v4.c
++++ b/files/arch/mips/ath79/mach-tl-wr741nd-v4.c
+@@ -134,7 +134,7 @@ static void __init tl_ap121_setup(void)
+ 	u8 *mac = (u8 *) KSEG1ADDR(0x1f01fc00);
+ 	u8 *ee = (u8 *) KSEG1ADDR(0x1fff1000);
+ 
+-	ath79_setup_ar933x_phy4_switch(true, true);
++	ath79_setup_ar933x_phy4_switch(false, false);
+ 
+ 	ath79_gpio_function_disable(AR933X_GPIO_FUNC_ETH_SWITCH_LED0_EN |
+ 				    AR933X_GPIO_FUNC_ETH_SWITCH_LED1_EN |
+--- a/files/arch/mips/ath79/mach-tl-wr841n-v8.c
++++ b/files/arch/mips/ath79/mach-tl-wr841n-v8.c
+@@ -188,7 +188,7 @@ static void __init tl_ap123_setup(void)
+ 
+ 	ath79_register_m25p80(&tl_wr841n_v8_flash_data);
+ 
+-	ath79_setup_ar934x_eth_cfg(AR934X_ETH_CFG_SW_PHY_SWAP);
++	ath79_setup_ar934x_eth_cfg(AR934X_ETH_CFG_SW_ONLY_MODE);
+ 
+ 	ath79_register_mdio(1, 0x0);
+ 
+@@ -197,9 +197,9 @@ static void __init tl_ap123_setup(void)
+ 
+ 	/* GMAC0 is connected to the PHY0 of the internal switch */
+ 	ath79_switch_data.phy4_mii_en = 1;
+-	ath79_switch_data.phy_poll_mask = BIT(0);
++	ath79_switch_data.phy_poll_mask = BIT(4);
+ 	ath79_eth0_data.phy_if_mode = PHY_INTERFACE_MODE_MII;
+-	ath79_eth0_data.phy_mask = BIT(0);
++	ath79_eth0_data.phy_mask = BIT(4);
+ 	ath79_eth0_data.mii_bus_dev = &ath79_mdio1_device.dev;
+ 	ath79_register_eth(0);
+ 
